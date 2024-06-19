@@ -34,6 +34,7 @@ public class BookService {
     {
         return bookRepository.findByName(name);
     }
+
     public List<Book> getBooksByGenre(String genre)
     {
         return bookRepository.findByGenre(genre);
