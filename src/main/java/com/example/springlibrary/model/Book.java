@@ -1,9 +1,7 @@
 package com.example.springlibrary.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class Book {
@@ -11,18 +9,20 @@ public class Book {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private long id;
    private String name;
-   private long authorId;
     String genre;
     float price;
     int count;
+    @ManyToOne
+    @JsonIgnore
+    private Author author;
 
     public Book() {
+        this(0L,"","",0F,0);
     }
 
-    public Book(long id, String name, long authorId, String genre, float price, int count) {
+    public Book(long id, String name, String genre, float price, int count) {
         this.id = id;
         this.name = name;
-        this.authorId = authorId;
         this.genre = genre;
         this.price = price;
         this.count = count;
@@ -44,12 +44,12 @@ public class Book {
         this.name = name;
     }
 
-    public long getAuthorId() {
-        return authorId;
+    public Author getAuthor() {
+        return author;
     }
 
-    public void setAuthorId(long authorId) {
-        this.authorId = authorId;
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     public String getGenre() {
